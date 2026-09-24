@@ -1,28 +1,26 @@
--- Steal An Egg - Ultimate Pro Hack & Anti-Ban Hub By AZC
+-- Steal An Egg - Ultimate Pro Hub By AZC
 local Players = game:GetService("Players")
 local Workspace = game:GetService("Workspace")
 local VirtualUser = game:GetService("VirtualUser")
 local LocalPlayer = Players.LocalPlayer
 
-if _G.ProStealEggRunning then
-    warn("السكربت يعمل بالفعل!")
-    return
-end
-_G.ProStealEggRunning = true
-
--- نظام حماية خمول ومنع الطرد (Anti-AFK & Anti-Kick)
+-- منع الخمول والطرد (Anti-AFK) لضمان عدم خروجك كل 20 دقيقة
 LocalPlayer.Idled:Connect(function()
     VirtualUser:CaptureController()
     VirtualUser:ClickButton2(Vector2.new())
 end)
 
--- إنشاء الواجهة الاحترافية
+-- إزالة أي واجهة قديمة لمنع التكرار
+if LocalPlayer.PlayerGui:FindFirstChild("AZC_Ultimate_Pro_GUI") then
+    LocalPlayer.PlayerGui.AZC_Ultimate_Pro_GUI:Destroy()
+end
+
 local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Name = "AZC_Pro_EggGUI"
+ScreenGui.Name = "AZC_Ultimate_Pro_GUI"
 ScreenGui.Parent = LocalPlayer:WaitForChild("PlayerGui")
 ScreenGui.ResetOnSpawn = false
 
--- أيقونة فتح وإغلاق القائمة
+-- أيقونة فتح وإغلاق القائمة العائمة
 local ToggleUIIcon = Instance.new("TextButton")
 ToggleUIIcon.Name = "ToggleUIIcon"
 ToggleUIIcon.Parent = ScreenGui
@@ -38,12 +36,13 @@ local IconCorner = Instance.new("UICorner")
 IconCorner.CornerRadius = UDim.new(0, 10)
 IconCorner.Parent = ToggleUIIcon
 
+-- إطار القائمة الرئيسي
 local MainFrame = Instance.new("Frame")
 MainFrame.Name = "MainFrame"
 MainFrame.Parent = ScreenGui
 MainFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
 MainFrame.Position = UDim2.new(0.1, 0, 0.15, 0)
-MainFrame.Size = UDim2.new(0, 380, 0, 440)
+MainFrame.Size = UDim2.new(0, 370, 0, 430)
 MainFrame.Active = true
 MainFrame.Draggable = true
 
@@ -62,22 +61,22 @@ Title.Parent = MainFrame
 Title.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 Title.Size = UDim2.new(1, 0, 0, 40)
 Title.Font = Enum.Font.GothamBold
-Title.Text = "AZC Pro Hub | Auto Grab & Speed"
+Title.Text = "AZC Pro Hub | Auto Grab & Multi-Select"
 Title.TextColor3 = Color3.fromRGB(255, 215, 0)
-Title.TextSize = 14
+Title.TextSize = 13
 
 local TitleCorner = Instance.new("UICorner")
 TitleCorner.CornerRadius = UDim.new(0, 12)
 TitleCorner.Parent = Title
 
--- زر تحديث أسماء البيض المتاحة
+-- زر تحديث أسماء البيض المتاح في اللعبة
 local RefreshBtn = Instance.new("TextButton")
 RefreshBtn.Parent = MainFrame
 RefreshBtn.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
 RefreshBtn.Position = UDim2.new(0.05, 0, 0.11, 0)
 RefreshBtn.Size = UDim2.new(0.9, 0, 0, 32)
 RefreshBtn.Font = Enum.Font.GothamBold
-RefreshBtn.Text = "🔄 جلب وفحص جميع بيض اللعبة"
+RefreshBtn.Text = "🔄 فحص وجلب جميع أسماء وأعداد البيض"
 RefreshBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 RefreshBtn.TextSize = 12
 
@@ -85,12 +84,12 @@ local RefCorner = Instance.new("UICorner")
 RefCorner.CornerRadius = UDim.new(0, 6)
 RefCorner.Parent = RefreshBtn
 
--- صندوق تمرير لقائمة البيض
+-- قائمة التمرير لعرض البيض
 local ScrollingFrame = Instance.new("ScrollingFrame")
 ScrollingFrame.Parent = MainFrame
 ScrollingFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 ScrollingFrame.Position = UDim2.new(0.05, 0, 0.20, 0)
-ScrollingFrame.Size = UDim2.new(0.9, 0, 0, 170)
+ScrollingFrame.Size = UDim2.new(0.9, 0, 0, 175)
 ScrollingFrame.CanvasSize = UDim2.new(0, 0, 2, 0)
 ScrollingFrame.ScrollBarThickness = 6
 
@@ -103,14 +102,14 @@ UIListLayout.Parent = ScrollingFrame
 UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 UIListLayout.Padding = UDim.new(0, 5)
 
--- زر التشغيل والإيقاف
+-- زر التشغيل والإيقاف العام
 local ToggleBtn = Instance.new("TextButton")
 ToggleBtn.Parent = MainFrame
 ToggleBtn.BackgroundColor3 = Color3.fromRGB(180, 40, 40)
-ToggleBtn.Position = UDim2.new(0.05, 0, 0.62, 0)
+ToggleBtn.Position = UDim2.new(0.05, 0, 0.63, 0)
 ToggleBtn.Size = UDim2.new(0.9, 0, 0, 45)
 ToggleBtn.Font = Enum.Font.GothamBold
-ToggleBtn.Text = "Auto Farm: OFF (Safe Mode)"
+ToggleBtn.Text = "Auto Farm: OFF"
 ToggleBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 ToggleBtn.TextSize = 14
 
@@ -118,14 +117,14 @@ local BtnCorner = Instance.new("UICorner")
 BtnCorner.CornerRadius = UDim.new(0, 8)
 BtnCorner.Parent = ToggleBtn
 
--- نص الحالة
+-- نص الحالة التفاعلي
 local StatusTxt = Instance.new("TextLabel")
 StatusTxt.Parent = MainFrame
 StatusTxt.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-StatusTxt.Position = UDim2.new(0.05, 0, 0.74, 0)
-StatusTxt.Size = UDim2.new(0.9, 0, 0, 95)
+StatusTxt.Position = UDim2.new(0.05, 0, 0.75, 0)
+StatusTxt.Size = UDim2.new(0.9, 0, 0, 90)
 StatusTxt.Font = Enum.Font.Gotham
-StatusTxt.Text = "الحالة: اضغط زر جلب البيض بالأعلى، حدد ما تريد، ثم شغل السكربت.\n(السرعة الفائقة والحماية مفعلة)"
+StatusTxt.Text = "الحالة: اضغط زر الفحص، حدد البيض المطلوب بمربعات التحديد، ثم شغل السكربت.\n(Anti-AFK والسرعة الفائقة مفعلة)"
 StatusTxt.TextColor3 = Color3.fromRGB(180, 180, 180)
 StatusTxt.TextSize, StatusTxt.TextWrapped = 11, true
 
@@ -137,7 +136,7 @@ ToggleBtn.MouseButton1Click:Connect(function()
     if activeFarm then
         ToggleBtn.BackgroundColor3 = Color3.fromRGB(40, 180, 40)
         ToggleBtn.Text = "Auto Farm: ON (Hyper Speed)"
-        StatusTxt.Text = "الحالة: يتم رصد وجلب البيض المحدد بسرعة خارقة..."
+        StatusTxt.Text = "الحالة: يتم جمع البيض المحدد بسرعة خارقة..."
     else
         ToggleBtn.BackgroundColor3 = Color3.fromRGB(180, 40, 40)
         ToggleBtn.Text = "Auto Farm: OFF"
@@ -145,7 +144,7 @@ ToggleBtn.MouseButton1Click:Connect(function()
     end
 end)
 
--- وظيفة جلب أسماء البيض وعمل مربعات جانبية للاختيار المتعدد
+-- وظيفة فحص وجلب البيض مع مربعات اختيار جانبية دقيقة
 local function UpdateEggList()
     for _, v in ipairs(ScrollingFrame:GetChildren()) do
         if v:IsA("Frame") then
@@ -161,7 +160,6 @@ local function UpdateEggList()
     end
     
     for eggName, count in pairs(eggData) do
-        -- إطار يضم اسم البيضة والعدد ومربع الاختيار بجانبها
         local itemFrame = Instance.new("Frame")
         itemFrame.Parent = ScrollingFrame
         itemFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
@@ -171,7 +169,7 @@ local function UpdateEggList()
         frameCorner.CornerRadius = UDim.new(0, 6)
         frameCorner.Parent = itemFrame
         
-        -- زر المربع الصغير الجانبي للتحديد
+        -- مربع الاختيار الصغير بجانب اسم البيضة
         local checkBox = Instance.new("TextButton")
         checkBox.Parent = itemFrame
         checkBox.BackgroundColor3 = SelectedEggs[eggName] and Color3.fromRGB(0, 200, 100) or Color3.fromRGB(70, 70, 70)
@@ -186,7 +184,7 @@ local function UpdateEggList()
         checkCorner.CornerRadius = UDim.new(0, 4)
         checkCorner.Parent = checkBox
         
-        -- اسم البيضة والعدد
+        -- اسم البيضة والعدد الحالي بالعالم
         local label = Instance.new("TextLabel")
         label.Parent = itemFrame
         label.BackgroundTransparency = 1
@@ -197,7 +195,6 @@ local function UpdateEggList()
         label.TextColor3 = Color3.fromRGB(255, 255, 255)
         label.TextSize, label.TextXAlignment = 12, Enum.TextXAlignment.Left
         
-        -- تفعيل الاختيار عند الضغط على المربع أو السطر
         local function toggleSelect()
             if SelectedEggs[eggName] then
                 SelectedEggs[eggName] = nil
@@ -223,7 +220,7 @@ RefreshBtn.MouseButton1Click:Connect(function()
     UpdateEggList()
 end)
 
--- محرك السرعة الفائقة والنقل السريع للبيض بأمان
+-- محرك السرعة الخارقة والتنقل الفوري للبيض المحدد أينما كان
 task.spawn(function()
     while true do
         task.wait(0.2)
@@ -242,11 +239,11 @@ task.spawn(function()
                             found = true
                             StatusTxt.Text = "جاري القفز السريع وجلب: " .. obj.Name
                             
-                            -- سرعة فائقة جداً بالنقل الفوري فوق البيضة مهما كانت بعيدة أو كبيرة
+                            -- انتقال فوري للبيضة مهما كان حجمها أو مسافتها
                             hrp.CFrame = part.CFrame + Vector3.new(0, 2.5, 0)
                             task.wait(0.1)
                             
-                            -- تفعيل اللمس والسرقة بقوة
+                            -- تفعيل اللمس وسحب البيضة بفاعلية
                             firetouchinterest(hrp, part, 0)
                             task.wait(0.05)
                             firetouchinterest(hrp, part, 1)
@@ -268,4 +265,5 @@ task.spawn(function()
     end
 end)
 
+-- فحص تلقائي أولي للقائمة عند التشغيل
 pcall(UpdateEggList)
